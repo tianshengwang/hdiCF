@@ -94,7 +94,7 @@ D5_MLS$depth_gg
 
 *Note that despite using a smaller minimum leaf size (MLS), the causal forests do not grow deeper due to the presence of a strong 3-way interaction (W:X1:X3) in the simulated data set.* 
 
-***Step 3. Implement iCF on Medicare SGLT2i vs GLP1RA new user cohort***
+***Step 3. Implement hdiCF on Medicare SGLT2i vs GLP1RA new user cohort***
 ```{}
 leafsize <<- list(D5=85, D4=65, D3=45, D2=25)
 
