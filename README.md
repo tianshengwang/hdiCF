@@ -98,11 +98,11 @@ D5_MLS$depth_gg
 ```{}
 leafsize <<- list(D5=85, D4=65, D3=45, D2=25)
 
-iCFCV_B1000_i200_rwd <- iCFCV(dat=dat,K=5, treeNo=1000, iterationNo=100, min.split.var=4,
+iCFCV_B1000_i200_rwdHD <- iCFCV(dat=dat,K=5, treeNo=1000, iterationNo=100, min.split.var=4,
                               split_val_round_posi=0, P_threshold=0.1, variable_type = "non-HD", 
                               hdpct= 0.95, HTE_P_cf.raw = HTE_P_cf.raw) 
 
-iCFCV_B1000_i200_rwd
+iCFCV_B1000_i200_rwdHD
 ```
 
 If you have further questions or comments, please contact Dr. Tiansheng Wang: tianwang@unc.edu
