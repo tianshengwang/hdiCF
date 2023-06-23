@@ -77,6 +77,10 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
  
  For details of [iCF algorithm: https://github.com/tianshengwang/iCF](https://github.com/tianshengwang/iCF) 
  
+**Citation:**
+
+Wang T, Keil AP, Kim S, Wyss R, Htoo PT, Funk MJ, Buse JB, Kosorok MR, Stürmer T. Iterative Causal Forest: A Novel Algorithm for Subgroup Identification. _Am J Epidemiol._ 2023 (In Press).
+ 
  ***To tune the leaf size, use different values for the minimum leaf size (MLS) to grow forests at various depths (D).***
  ```{}
 #Specify the decimal position for continuous variables in the subgroup definition.
