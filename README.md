@@ -2,7 +2,7 @@
 ----------------------------------------------------------------------------------
 The hdiCF algorithm identifies important subgroups with heterogeneous treatment effects without prior knowledge of treatment-covariate interactions and predefined covariates
 
-<img src = images/FIG1_19Mar2023.jpg width=1000>
+<img src = images/FIGURE 1_hdiCF full.jpg width=1000>
 
 **Citation**
 
