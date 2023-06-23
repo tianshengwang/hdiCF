@@ -37,9 +37,11 @@ Please following the information for [iCF instaliation](https://github.com/tians
 
 **3. Run hdiCF on real-world claims data**
 
-We compared the two-year risk difference (RD) of hospitalized heart failure (HHF) of initiating any sodium-glucose cotransporter-2 inhibitors (SGLT2i) versus glucagon-like peptide-1 receptor agonists (GLP1RA) using a 20% random sample of all fee-for-service U.S. Medicare beneficiaries who had parts A (inpatient), B (outpatient physician services), and D (dispensed prescription drugs) coverage for at least one month from January 2012 to December 2017. The details of the cohort are available in the mehtod paper (Wang et al.) 
+For simplicity, we focused on the ICD-10 era, included patients who initiated SGLT2i or GLP1RA treatment from October 2016 and followed them until December 2019. We compared the two-year risk difference (RD) of hospitalized heart failure (HHF) of initiating any sodium-glucose cotransporter-2 inhibitors (SGLT2i) versus glucagon-like peptide-1 receptor agonists (GLP1RA) using a 20% random sample of all fee-for-service U.S. Medicare beneficiaries who had parts A (inpatient), B (outpatient physician services), and D (dispensed prescription drugs) coverage for at least one month from October 2015 to December 2019. The details of the cohort are available in the mehtod paper (Wang et al.) 
 
-***Step 1. Run raw causal forest to predict outcome (Y.hat), propensity score (W.hat), and select variables***
+***Step 1. High-dimensional feature identification***
+
+***Step 2. Variable selection***
 ```{}
  vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
  X <- dat[,vars_forest]
@@ -54,8 +56,28 @@ We compared the two-year risk difference (RD) of hospitalized heart failure (HHF
  GG_VI(varimp_cf, "Variable importance" )
  ```
  <img src = images/VI_allHD.png width=800>
+
+
+ ```{}
+ vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
+ X <- dat[,vars_forest]
+ Y <- as.vector( as.numeric( dat[,"Y"] ) )
+ W <- as.vector( as.numeric( dat[,"W"] ) )
+ cf_raw_key.tr <- CF_RAW_key(dat, 1, "non-hd", hdpct=0.90) 
+ Y.hat  <<- cf_raw_key.tr$Y.hat                 
+ W.hat  <<- cf_raw_key.tr$W.hat                 
+ HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    
+ varimp_cf  <- cf_raw_key.tr$varimp_cf          
+ selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx 
+ GG_VI(varimp_cf, "Variable importance" )
+ ```
+ <img src = images/VI90percentile.png width=800>
  
- ***Step 2. To tune the leaf size, use different values for the minimum leaf size (MLS) to grow forests at various depths (D).***
+ ***Step 3. Iplementation of iCF.***
+ 
+ For details of [iCF algorithm: https://github.com/tianshengwang/iCF](https://github.com/tianshengwang/iCF) 
+ 
+ ***To tune the leaf size, use different values for the minimum leaf size (MLS) to grow forests at various depths (D).***
  ```{}
 #Specify the decimal position for continuous variables in the subgroup definition.
 split_val_round_posi=0
