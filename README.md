@@ -43,7 +43,31 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 
 ***Step 2. Variable selection***
 ```{}
- vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
+ PREPARE_HD <-function(train, dxgroup, atcgroup){
+ # if (outcome=="adrd"){
+    train0 <- train %>%  dplyr::mutate(Y = HHF_2yr_2yr,
+                                       W = ifelse(SGLT==1,1,0),     
+                                       sex=as.numeric(sex),
+                                       race=as.numeric(race))
+    train00 <- train0 %>% 
+             dplyr::select(BENE_ID, Y, W, age, sex , race,
+                               starts_with(c(paste0("dx",dxgroup) , 
+                                             "cpt5", 
+                                             paste0("atc", atcgroup)
+                                             ),                  
+                                             )
+               ) %>% as.data.frame.matrix() 
+  #remove columns with only one level
+  train00 <- train00[, sapply(train00, function(col) length(unique(col))) > 1]   
+  return(train00)
+}
+
+Train_BENEID_all <<- PREPARE_HD(Train2, 3, 4)
+dat <- Train_BENEID_all %>% select(-c("BENE_ID"))
+ID <-1:nrow(Train)
+Train_ID <- cbind(Train, as.vector(ID)) %>% dplyr::rename (ID=`as.vector(ID)`)
+
+vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
  X <- dat[,vars_forest]
  Y <- as.vector( as.numeric( dat[,"Y"] ) )
  W <- as.vector( as.numeric( dat[,"W"] ) )
@@ -59,27 +83,29 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 
 
  ```{}
- vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
- X <- dat[,vars_forest]
- Y <- as.vector( as.numeric( dat[,"Y"] ) )
- W <- as.vector( as.numeric( dat[,"W"] ) )
- cf_raw_key.tr <- CF_RAW_key(dat, 1, "non-hd", hdpct=0.90) 
- Y.hat  <<- cf_raw_key.tr$Y.hat                 
- W.hat  <<- cf_raw_key.tr$W.hat                 
- HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    
- varimp_cf  <- cf_raw_key.tr$varimp_cf          
- selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx 
- GG_VI(varimp_cf, "Variable importance" )
+colnames(X[,c(selected_cf.idx)])
+X <<- X[,c(selected_cf.idx)]
+dat <<- dat[,c("Y", "W", colnames(X)) ]
+vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
+vars_catover2 <<- colnames(X[, -which(names(X) %in% c("sex")) ])
+
+cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdpct=0.90) #use all selected variable in the 1st step
+Y.hat  <<- cf_raw_key.tr$Y.hat
+W.hat  <<- cf_raw_key.tr$W.hat
+HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw
+HTE_P_cf.raw
+varimp_cf  <- cf_raw_key.tr$varimp_cf
+selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx #MUST reselect important covaraites to run CF!!!!
+length(selected_cf.idx)
+colnames(X[,c(selected_cf.idx)])
+GG_VI(varimp_cf, 'Variable importance for high-dimensional feature identification \n in SGLT2i vs GLP1RA cohort for HHF', colnames(X) )
+
  ```
  <img src = images/VI90percentile.png width=800>
  
  ***Step 3. Iplementation of iCF.***
  
  For details of [iCF algorithm: https://github.com/tianshengwang/iCF](https://github.com/tianshengwang/iCF) 
- 
-**Citation:**
-
-Wang T, Keil AP, Kim S, Wyss R, Htoo PT, Funk MJ, Buse JB, Kosorok MR, Stürmer T. Iterative Causal Forest: A Novel Algorithm for Subgroup Identification. _Am J Epidemiol._ 2023 (In Press).
  
  ***To tune the leaf size, use different values for the minimum leaf size (MLS) to grow forests at various depths (D).***
  ```{}
@@ -118,9 +144,8 @@ D5_MLS$depth_gg
 ```
 <img src = images/D5_MLS_tune_rwdHD.png width=350>
 
-*Note that despite using a smaller minimum leaf size (MLS), the causal forests do not grow deeper due to the presence of a strong 3-way interaction (W:X1:X3) in the simulated data set.* 
 
-***Step 3. Implement hdiCF on Medicare SGLT2i vs GLP1RA new user cohort***
+***Run iCF on Medicare SGLT2i vs GLP1RA new user cohort***
 ```{}
 leafsize <<- list(D5=85, D4=65, D3=45, D2=25)
 
