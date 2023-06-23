@@ -53,7 +53,7 @@ We compared the two-year risk difference (RD) of hospitalized heart failure (HHF
  selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx 
  GG_VI(varimp_cf, "Variable importance" )
  ```
- <img src = images/VI_SGLTvGLP_HHF2y.jpeg width=800>
+ <img src = images/VI_allHD.png width=800>
  
  ***Step 2. To tune the leaf size, use different values for the minimum leaf size (MLS) to grow forests at various depths (D).***
  ```{}
