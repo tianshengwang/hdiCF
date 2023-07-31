@@ -1,5 +1,7 @@
 # high-dimensional Iterative Causal Forest (hdiCF)
-----------------------------------------------------------------------------------
+
+## iCF is free for nonprofit use
+
 The hdiCF algorithm identifies important subgroups with heterogeneous treatment effects without prior knowledge of treatment-covariate interactions and predefined covariates
 
 <img src = images/FIGURE1_hdiCF_full.jpg width=1000>
