@@ -35,7 +35,7 @@ library(spaMM)
 ```
 **2. Installation**
 
-Please following the information for [iCF instaliation](https://github.com/tianshengwang/iCF).
+Please following the information for [iCF installation](https://github.com/tianshengwang/iCF).
 
 **3. Run hdiCF on real-world claims data**
 
