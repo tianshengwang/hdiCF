@@ -45,10 +45,10 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 
 ***Step 2. Variable selection***
 ```{}
- PREPARE_HD <-function(train, dxgroup, atcgroup){
+ PREPARE_HD <-function(train, exposure, outcome, dxgroup, atcgroup){
  # if (outcome=="adrd"){
-    train0 <- train %>%  dplyr::mutate(Y = HHF_2yr_2yr,
-                                       W = ifelse(SGLT==1,1,0),     
+    train0 <- train %>%  dplyr::mutate(Y = outcome,
+                                       W = ifelse(exposure==1,1,0),     
                                        sex=as.numeric(sex),
                                        race=as.numeric(race))
     train00 <- train0 %>% 
@@ -64,7 +64,7 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
   return(train00)
 }
 
-Train_BENEID_all <<- PREPARE_HD(Train2, 3, 4)
+Train_BENEID_all <<- PREPARE_HD(Train2, SGLT, HHF_2yr_2yr, 3, 4)
 dat <- Train_BENEID_all %>% select(-c("BENE_ID"))
 ID <-1:nrow(Train)
 Train_ID <- cbind(Train, as.vector(ID)) %>% dplyr::rename (ID=`as.vector(ID)`)
