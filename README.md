@@ -90,7 +90,7 @@ colnames(X[,c(selected_cf.idx)])
 X <<- X[,c(selected_cf.idx)]
 dat <<- dat[,c("Y", "W", colnames(X)) ]
 vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
-vars_catover2 <<- colnames(X[, -which(names(X) %in% c("sex")) ])
+
 
 cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdpct=0.90) #use all selected variable in the 1st step
 Y.hat  <<- cf_raw_key.tr$Y.hat
@@ -114,10 +114,8 @@ GG_VI(varimp_cf, 'Variable importance for high-dimensional feature identificatio
  ```{}
 #Specify the decimal position for continuous variables in the subgroup definition.
 split_val_round_posi=0
-#For real-world projects (not simulations where we know the truth), the truth is set as "Unknown".
-truth.list <<- TRUTH("Unknown")
-#Define categorical variables with more than two levels.
-vars_catover2 <<- NA  
+#Define categorical variables with more than two levels:
+vars_catover2 <<- find_level_over2(X)  
 ```
 ```{}
 D2_MLS=MinLeafSizeTune(dat=dat, denominator=25, treeNo = 1000, iterationNo=100, split_val_round_posi=0, "D2", "steelblue4")
