@@ -11,9 +11,6 @@ The hdiCF algorithm identifies important subgroups with heterogeneous treatment 
 
 <img src = images/FIGURE1_hdiCF_full.jpg width=1000>
 
-**Citation**
-
-Wang T, Pate V, Wyss R, Buse JB, Kosorok MR, Stürmer T. High-dimensional Iterative Causal Forest (hdiCF) for Subgroup Identification Using Health Care Claims Data. Am J Epidemiol. 2023 (In Preparation).
 
 **1. R packages recommended**
 ```{r packages, include=FALSE}
