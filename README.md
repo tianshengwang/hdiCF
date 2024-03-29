@@ -154,11 +154,20 @@ D5_MLS$depth_gg
 ```{}
 leafsize <<- list(D5=D5_MLS$denominator, D4=D4_MLS$denominator, D3=D3_MLS$denominator, D2=D2_MLS$denominator)
 
-iCFCV_B1000_i200_rwdHD <- iCFCV(dat=Train,K=5, treeNo=1000, iterationNo=100, min.split.var=4,
-                              split_val_round_posi=0, P_threshold=0.1, variable_type = "hd", 
-                              hdpct= 0.95, HTE_P_cf.raw = HTE_P_cf.raw) 
+c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95 <- iCFCV(dat=Train,K=5, treeNo=1000, iterationNo=100, min.split.var=4,
+                                                split_val_round_posi=0, P_threshold=0.1, variable_type = "hd", 
+                                                hdpct= 0.95, HTE_P_cf.raw = HTE_P_cf.raw) 
 
-iCFCV_B1000_i200_rwdHD
+#Subgroup decision:
+c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95$selectedSG_ori
+#Propensity score distribution across training and testing sets
+GG_CV_Dx_PS(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
+#Inverse probability distribution across training and testing sets
+GG_CV_Dx_iptw(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
+#transformed outcome distribution across training and testing sets
+GG_CV_Dx_Ystar(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
+#non-Zero transformed outcome distribution across training and testing sets
+GG_CV_Dx_YstarNo0(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
 ```
 
 If you have further questions or comments, please contact Dr. Tiansheng Wang: tianwang@unc.edu
