@@ -1,6 +1,6 @@
 # high-dimensional Iterative Causal Forest (hdiCF)
 
-© 2019 Tiansheng Wang. This work is openly licensed via [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
+© 2024 Tiansheng Wang. This work is openly licensed via [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
 
 
 **Citation**
@@ -178,12 +178,12 @@ transformed outcome distribution across training and testing sets
 ```{}
 GG_CV_Dx_Ystar(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
 ```
-<img src = images/D5_MLS_tune_rwdHD.png width=350>
+<img src = images/Ystar.png width=1350>
 
 non-Zero transformed outcome distribution across training and testing sets
 ```{}
 GG_CV_Dx_YstarNo0(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
 ```
-<img src = images/YstarNo0. width=350>
+<img src = images/YstarNo0.png width=1350>
 
 If you have further questions or comments, please contact Dr. Tiansheng Wang: tianwang@unc.edu
