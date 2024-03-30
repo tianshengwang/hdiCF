@@ -45,12 +45,14 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 
 ***Step 1. High-dimensional feature identification***
 
-***Step 2. Variable selection***
+Create analytic cohort and ordinal HD variables in SAS.
+
+***Step 2. Propensity score trimming and HD features preparation***
 ```{}
- PREPARE_HD <-function(train, exposure, outcome, dxgroup, atcgroup){
+ PREPARE_HD <-function(train, dxgroup, atcgroup){
  # if (outcome=="adrd"){
-    train0 <- train %>%  dplyr::mutate(Y = outcome,
-                                       W = ifelse(exposure==1,1,0),     
+    train0 <- train %>%  dplyr::mutate(Y = HHF_2yr_2yr,
+                                       W = ifelse(SGLT==1,1,0),     
                                        sex=as.numeric(sex),
                                        race=as.numeric(race))
     train00 <- train0 %>% 
@@ -66,7 +68,39 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
   return(train00)
 }
 
-Train_BENEID_all <<- PREPARE_HD(Train2, SGLT, HHF_2yr_2yr, 3, 4)
+
+Train <- Train_BENEID_all %>% select(-c("BENE_ID", "IndexDate"))
+
+vars_forest = colnames( Train %>% dplyr::select(-c("Y", "W" ))  )
+
+XYW <- function(TrainDat){
+  X <- TrainDat[,vars_forest]
+  Y <- as.vector( as.numeric( TrainDat[,"Y"] ) )
+  W <- as.vector( as.numeric( TrainDat[,"W"] ) )
+  return(list(x=X, y=Y, w=W))
+}
+#all patients
+X <<- XYW(Train)$x
+Y <<- XYW(Train)$y
+W <<- XYW(Train)$w
+
+ncol(X); nrow(X); length(Y); length(W)
+#Z<-Train[,vars_IV]
+cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=pct_inter) 
+#==============================================#==============================================
+Y.hat  <<- cf_raw_key.tr$Y.hat                 #
+W.hat  <<- cf_raw_key.tr$W.hat  
+HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # run for overall population or each subgroup
+varimp_cf  <- cf_raw_key.tr$varimp_cf          #
+#==============================================#==============================================
+
+#W.hat    <- predict(grf::regression_forest(X, W))$predictions
+
+PSplot_allV <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV")
+
+```
+
+Train_BENEID_all <<- PREPARE_HD(Train2, 3, 4)
 dat <- Train_BENEID_all %>% select(-c("BENE_ID"))
 ID <-1:nrow(Train)
 Train_ID <- cbind(Train, as.vector(ID)) %>% dplyr::rename (ID=`as.vector(ID)`)
@@ -84,7 +118,7 @@ vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
  selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx 
  GG_VI(varimp_cf, "Variable importance" )
  ```
- <img src = images/VI_allHD.png width=800>
+ <img src = images/VI_allHD.png width=500>
 
 
  ```{}
