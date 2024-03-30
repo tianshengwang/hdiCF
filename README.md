@@ -48,6 +48,8 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 Create analytic cohort and ordinal HD variables in SAS.
 
 ***Step 2. Propensity score trimming and HD features preparation***
+
+***Step 2A. Predict propensity score with all HD features***
 ```{}
  PREPARE_HD <-function(train, dxgroup, atcgroup){
  # if (outcome=="adrd"){
@@ -90,16 +92,17 @@ cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=pct_inter)
 #==============================================#==============================================
 Y.hat  <<- cf_raw_key.tr$Y.hat                 #
 W.hat  <<- cf_raw_key.tr$W.hat  
-HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # run for overall population or each subgroup
+HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # 
 varimp_cf  <- cf_raw_key.tr$varimp_cf          #
 #==============================================#==============================================
 
-#W.hat    <- predict(grf::regression_forest(X, W))$predictions
+#W.hat <- predict(grf::regression_forest(X, W))$predictions
 
 PSplot_allV <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV")
-PSplot_allV
+VI_lab_priortrim <-  PlotVI(varimp_cf, paste0(ncol(X), ' HD variables'), colnames(X))
+VI_heat_priortrim <- GG_VI(varimp_cf, paste0( '', paste0(ncol(X),' HD variables')), colnames(X) )
 ```
- <img src = images/PS_b4Trim.png width=500>
+***Step 2B. Propensity score trimming***
 
 ```{}
 library("plyr")
@@ -118,17 +121,17 @@ cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=pct_inter)
 #==============================================#==============================================
 Y.hat  <<- cf_raw_key.tr$Y.hat                 #
 W.hat  <<- cf_raw_key.tr$W.hat  
-HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # run for overall population or each subgroup
+HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    #
 varimp_cf  <- cf_raw_key.tr$varimp_cf          #
 #==============================================#==============================================
 PSplot_allV_trim_reesti <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV_trim")
-PSplot_allV_trim_reesti 
+VI_lab_posttrim <- PlotVI(varimp_cf, paste0(ncol(X), ' HD variables'), colnames(X))
+VI_heat_posttrim <- GG_VI(varimp_cf, paste0( '', paste0(ncol(X), ' HD variables')), colnames(X) )
 ```
- <img src = images/PS_postTrim.png width=500>
+***Step 2C. HD features preparation***
 
 ```{}
 X <<- FIX_LOW_FREQ (X, Lcutoff)
-
 #redefine training set
 Train <<- Train[,c("Y", "W", colnames(X)) ]
 
@@ -139,7 +142,7 @@ cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=pcttop) #use all selected v
 #==============================================#==============================================
 Y.hat  <<- cf_raw_key.tr$Y.hat                 #
 W.hat  <<- cf_raw_key.tr$W.hat  
-HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # run for overall population or each subgroup
+HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # 
 varimp_cf  <- cf_raw_key.tr$varimp_cf          #
 #==============================================#==============================================
 
@@ -161,6 +164,30 @@ varimp_cf  <- cf_raw_key.tr$varimp_cf          #
 colnames(X[,c(selected_cf.idx)]) #sex not involved
   
 PSplot_allV_trim_reesti_fixL <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV_trim_fixL")
+VI_lab_posttrim_fixL <- PlotVI(varimp_cf, paste0(ncol(X), ' HD variables'), colnames(X))
+VI_heat_posttrim_fixL <- GG_VI(varimp_cf, paste0( '', paste0(ncol(X), ' HD variables')),colnames(X))
+
+```
+
+```{}
+cowplot::plot_grid( PSplot_allV, PSplot_allV_trim_reesti, PSplot_allV_trim_reesti_fixL, 
+                    ncol  = 3, nrow=1,
+                    labels = c("A)", "B)", "C)"), 
+                    label_size = 15)
+```
+
+```{}
+cowplot::plot_grid( VI_lab_priortrim, VI_lab_posttrim, VI_lab_posttrim_fixL, 
+                    ncol  = 3, nrow=1,
+                    labels = c("A)", "B)", "C)"), 
+                    label_size = 15) 
+```
+
+```{}
+cowplot::plot_grid( VI_heat_priortrim, VI_heat_posttrim, VI_heat_posttrim_fixL, 
+                    ncol  = 3, nrow=1,
+                    labels = c("A)", "B)", "C)"), 
+                    label_size = 15)
 ```
 
 length(selected_cf.idx)
