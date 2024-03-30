@@ -99,6 +99,7 @@ varimp_cf  <- cf_raw_key.tr$varimp_cf          #
 PSplot_allV <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV")
 
 ```
+ <img src = images/PS_b4Trim.png width=500>
 
 Train_BENEID_all <<- PREPARE_HD(Train2, 3, 4)
 dat <- Train_BENEID_all %>% select(-c("BENE_ID"))
