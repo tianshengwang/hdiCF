@@ -101,6 +101,32 @@ PSplot_allV <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV")
 ```
  <img src = images/PS_b4Trim.png width=500>
 
+```{}
+library("plyr")
+detach("package:plyr", unload = TRUE)
+PS_trim_results  <- PS_trim( Train_BENEID_all, W.hat, "commonrange", NA)
+Train= PS_trim_results[[1]]
+nrow(Train)
+X <<- XYW(Train)$x
+Y <<- XYW(Train)$y
+W <<- XYW(Train)$w
+
+#re-estimate PS:
+#W.hat    <- predict(grf::regression_forest(X, W))$predictions
+
+cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=pct_inter) 
+#==============================================#==============================================
+Y.hat  <<- cf_raw_key.tr$Y.hat                 #
+W.hat  <<- cf_raw_key.tr$W.hat  
+HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # run for overall population or each subgroup
+varimp_cf  <- cf_raw_key.tr$varimp_cf          #
+#==============================================#==============================================
+PSplot_allV_trim_reesti <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV_trim")
+
+```
+ <img src = images/PS_postTrim.png width=500>
+
+
 Train_BENEID_all <<- PREPARE_HD(Train2, 3, 4)
 dat <- Train_BENEID_all %>% select(-c("BENE_ID"))
 ID <-1:nrow(Train)
