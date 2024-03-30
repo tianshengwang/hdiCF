@@ -97,7 +97,7 @@ varimp_cf  <- cf_raw_key.tr$varimp_cf          #
 #W.hat    <- predict(grf::regression_forest(X, W))$predictions
 
 PSplot_allV <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV")
-
+PSplot_allV
 ```
  <img src = images/PS_b4Trim.png width=500>
 
@@ -122,9 +122,63 @@ HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # run for overall population or e
 varimp_cf  <- cf_raw_key.tr$varimp_cf          #
 #==============================================#==============================================
 PSplot_allV_trim_reesti <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV_trim")
-
+PSplot_allV_trim_reesti 
 ```
  <img src = images/PS_postTrim.png width=500>
+
+```{}
+X <<- FIX_LOW_FREQ (X, Lcutoff)
+
+#redefine training set
+Train <<- Train[,c("Y", "W", colnames(X)) ]
+
+vars_forest = colnames( Train %>% dplyr::select(-c("Y", "W"))  ) 
+
+pcttop=0.95
+cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=pcttop) #use all selected variable in the 1st step
+#==============================================#==============================================
+Y.hat  <<- cf_raw_key.tr$Y.hat                 #
+W.hat  <<- cf_raw_key.tr$W.hat  
+HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    # run for overall population or each subgroup
+varimp_cf  <- cf_raw_key.tr$varimp_cf          #
+#==============================================#==============================================
+
+  #redefine selected X from shrinked dataset
+  selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx #MUST reselect important covaraites to run CF!!!!
+  
+  #if < 5 variables selected, then reselect top 5 variables
+  if (  length(selected_cf.idx) <5) {
+    cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=5) #use all selected variable in the 1st step
+    Y.hat  <<- cf_raw_key.tr$Y.hat
+    W.hat  <<- cf_raw_key.tr$W.hat
+    HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw
+    HTE_P_cf.raw
+    varimp_cf  <- cf_raw_key.tr$varimp_cf
+    selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx #MUST reselect important covaraites to run CF!!!!
+    pcttop <<-5
+  }
+
+colnames(X[,c(selected_cf.idx)]) #sex not involved
+  
+PSplot_allV_trim_reesti_fixL <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV_trim_fixL")
+```
+
+length(selected_cf.idx)
+time_rawCF <- cf_raw_key.tr$time_rawCF
+
+VI_lab_posttrim_fixL <- PlotVI(varimp_cf, paste0(ncol(X), ' HD variables'), colnames(X))
+
+VI_heat_posttrim_fixL <- GG_VI(varimp_cf#[which(varimp_cf > quantile(varimp_cf, pct_inter) )], 
+                          ,
+                          paste0( '', 
+                                  #pct_inter*100, 
+                                  paste0(#'% percentile (',
+                                    ncol(X),
+                                    #length(which(varimp_cf > quantile(varimp_cf, pct_inter) )),
+                                    ' HD variables')
+                                  ),
+                          colnames( X#[which(varimp_cf > quantile(varimp_cf, pct_inter) )]
+                          ) )
 
 
 Train_BENEID_all <<- PREPARE_HD(Train2, 3, 4)
