@@ -175,7 +175,9 @@ cowplot::plot_grid( PSplot_allV, PSplot_allV_trim_reesti, PSplot_allV_trim_reest
                     labels = c("A)", "B)", "C)"), 
                     label_size = 15)
 ```
-
+ <img src = images/PS_step2.png width=1000>
+Propensity score (PS) distribution in primary analysis before PS trimming, after trimming, and after combing levels with low observations. Panel A): PS distribution before PS trimming by “common range” approach; Panel B): PS distribution (estimated) after PS trimming; Panel C): PS distribution after combining low levels to make sure each level has at least m observations (m=15). 
+ 
 ```{}
 cowplot::plot_grid( VI_lab_priortrim, VI_lab_posttrim, VI_lab_posttrim_fixL, 
                     ncol  = 3, nrow=1,
@@ -183,13 +185,29 @@ cowplot::plot_grid( VI_lab_priortrim, VI_lab_posttrim, VI_lab_posttrim_fixL,
                     label_size = 15) 
 ```
 
+ <img src = images/VI_label_step2.png width=1000>
+Variable importance in primary analysis of all 591 high-dimensional variables distribution before PS trimming, after trimming, and after combing levels with low observations. Panel A): PS distribution before PS trimming by “common range” approach; Panel B): PS distribution (estimated) after PS trimming; Panel C): PS distribution after combining low levels to make sure each level has at least 15 observations.All high-dimensional variables are displayed to provide an overview of their quantity before growing hdiCF (Step 3). Each high-dimensional variable is presented using a combination of code type (ICD-10-CM, CPT, or ATC), data type (inpt for inpatient or outpt for outpatient), and code itself (ICD-10-CM, CPT, or ATC). These components are connected with underscores.  For example, ischemic heart disease (dx3_inpt_I25), "dx3" indicates that the ICD-10-CM code is represented using 3 digits, "inpt" signifies that the data corresponds to inpatient claim data, and "I25" represents the specific ICD-10-CM code. 
+ 
 ```{}
 cowplot::plot_grid( VI_heat_priortrim, VI_heat_posttrim, VI_heat_posttrim_fixL, 
                     ncol  = 3, nrow=1,
                     labels = c("A)", "B)", "C)"), 
                     label_size = 15)
 ```
+ <img src = images/VI_heat_step2.png width=1000>
+Variable importance in primary analysis of all 591 high-dimensional variables distribution before PS trimming, after trimming, and after combing levels with low observations. Panel A): PS distribution before PS trimming by “common range” approach; Panel B): PS distribution (estimated) after PS trimming; Panel C): PS distribution after combining low levels to make sure each level has at least 15 observations.
+```{}
+VI_heat_top5  <- GG_Xs(0.95) 
+VI_heat_top1  <- GG_Xs(0.99) 
+VI_heat_top10 <- GG_Xs(0.9) 
+cowplot::plot_grid( VI_heat_top1, VI_heat_top5, VI_heat_top10, 
+                    ncol  = 3, nrow=1,
+                    labels = c("A)", "B)", "C)"), 
+                    label_size = 15) 
+```
+<img src = images/X_selected.png width=1000>
 
+ 
 length(selected_cf.idx)
 time_rawCF <- cf_raw_key.tr$time_rawCF
 
