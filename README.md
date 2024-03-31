@@ -128,6 +128,7 @@ PSplot_allV_trim_reesti <- GG_PS(Train, W.hat, "Propensity Score", "PS_allV_trim
 VI_lab_posttrim <- PlotVI(varimp_cf, paste0(ncol(X), ' HD variables'), colnames(X))
 VI_heat_posttrim <- GG_VI(varimp_cf, paste0( '', paste0(ncol(X), ' HD variables')), colnames(X) )
 ```
+
 ***Step 2C. HD features preparation***
 
 ```{}
@@ -195,6 +196,7 @@ cowplot::plot_grid( VI_heat_priortrim, VI_heat_posttrim, VI_heat_posttrim_fixL,
                     label_size = 15)
 ```
  <img src = images/VI_heat_step2.png width=1000>
+ 
 Variable importance in primary analysis of all 591 high-dimensional variables distribution before PS trimming, after trimming, and after combing levels with low observations. Panel A): PS distribution before PS trimming by “common range” approach; Panel B): PS distribution (estimated) after PS trimming; Panel C): PS distribution after combining low levels to make sure each level has at least 15 observations.
 ```{}
 VI_heat_top5  <- GG_Xs(0.95) 
@@ -206,69 +208,10 @@ cowplot::plot_grid( VI_heat_top1, VI_heat_top5, VI_heat_top10,
                     label_size = 15) 
 ```
 <img src = images/X_selected.png width=1000>
+Variable importance for selected variables for SGLT2i vs GLP1RA new user cohort. Abbreviations: HD, high-dimensional; outpt, outpatient; inpt, inpatient; atc4, 4th level of anatomical therapeutic chemical; dx3, 3 digits for ICD-10 codes; cpt5, 5 digits for CPT codes. Top 5 codes are: 1) outpatient ATC code C03C for loop diuretics (atc4_outpt_C03C), 2) outpatient ICD-10 code for heart failure (dx3_outpt_I50); 3) inpatient ICD-10 code for Chronic Ischemic Heart Disease (dx3_inpt_I25); 4) outpatient CPT code for Prothrombin Time testing (cpt5_outpt_85610); 5) outpatient ICD-10 code for Atrial Fibrillation and Atrial Flutter (dx3_outpt_I48).  Panel A): Top 1% of HD variables as selected features X<sub>S</sub>  to grow run hdiCF; Panel B): Top 5% of HD variables as selected features X<sub>S</sub>  to grow run hdiCF; Panel C): Top 10% of HD variables as selected features X<sub>S</sub>  to grow run hdiCF. 
 
- 
-length(selected_cf.idx)
-time_rawCF <- cf_raw_key.tr$time_rawCF
-
-VI_lab_posttrim_fixL <- PlotVI(varimp_cf, paste0(ncol(X), ' HD variables'), colnames(X))
-
-VI_heat_posttrim_fixL <- GG_VI(varimp_cf#[which(varimp_cf > quantile(varimp_cf, pct_inter) )], 
-                          ,
-                          paste0( '', 
-                                  #pct_inter*100, 
-                                  paste0(#'% percentile (',
-                                    ncol(X),
-                                    #length(which(varimp_cf > quantile(varimp_cf, pct_inter) )),
-                                    ' HD variables')
-                                  ),
-                          colnames( X#[which(varimp_cf > quantile(varimp_cf, pct_inter) )]
-                          ) )
-
-
-Train_BENEID_all <<- PREPARE_HD(Train2, 3, 4)
-dat <- Train_BENEID_all %>% select(-c("BENE_ID"))
-ID <-1:nrow(Train)
-Train_ID <- cbind(Train, as.vector(ID)) %>% dplyr::rename (ID=`as.vector(ID)`)
-
-vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
- X <- dat[,vars_forest]
- Y <- as.vector( as.numeric( dat[,"Y"] ) )
- W <- as.vector( as.numeric( dat[,"W"] ) )
-
- cf_raw_key.tr <- CF_RAW_key(dat, 1, "hd", hdpct=0.90) 
- Y.hat  <<- cf_raw_key.tr$Y.hat                 
- W.hat  <<- cf_raw_key.tr$W.hat                 
- HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw    
- varimp_cf  <- cf_raw_key.tr$varimp_cf          
- selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx 
- GG_VI(varimp_cf, "Variable importance" )
- ```
- <img src = images/VI_allHD.png width=500>
-
-
- ```{}
-colnames(X[,c(selected_cf.idx)])
-X <<- X[,c(selected_cf.idx)]
-dat <<- dat[,c("Y", "W", colnames(X)) ]
-vars_forest = colnames( dat %>% dplyr::select(-c("Y", "W" ))  )
-
-
-cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdpct=0.90) #use all selected variable in the 1st step
-Y.hat  <<- cf_raw_key.tr$Y.hat
-W.hat  <<- cf_raw_key.tr$W.hat
-HTE_P_cf.raw <<- cf_raw_key.tr$HTE_P_cf.raw
-HTE_P_cf.raw
-varimp_cf  <- cf_raw_key.tr$varimp_cf
-selected_cf.idx <<- cf_raw_key.tr$selected_cf.idx #MUST reselect important covaraites to run CF!!!!
-length(selected_cf.idx)
-colnames(X[,c(selected_cf.idx)])
-GG_VI(varimp_cf, 'Variable importance for high-dimensional feature identification \n in SGLT2i vs GLP1RA cohort for HHF', colnames(X) )
-
- ```
- <img src = images/VI90percentile.png width=500>
- 
- ***Step 3. Iplementation of iCF.***
+>
+***Step 3. Iplementation of iCF.***
  
  For details of [iCF algorithm: https://github.com/tianshengwang/iCF](https://github.com/tianshengwang/iCF) 
  
