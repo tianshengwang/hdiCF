@@ -69,10 +69,10 @@ Create analytic cohort and ordinal HD variables in SAS.
   train00 <- train00[, sapply(train00, function(col) length(unique(col))) > 1]   
   return(train00)
 }
-
-
 Train <- Train_BENEID_all %>% select(-c("BENE_ID", "IndexDate"))
+```
 
+```{}
 # Note missing data will result in errors when running iCF/hdiCF like this:
 #-------------------------------------------------------
 # Error: Problem with `mutate()` column `G4`.
@@ -85,8 +85,10 @@ list_vars_with_missing_data <- function(df) {
   names(df)[vars_with_missing]
 }
 vars_with_missing <- list_vars_with_missing_data(Train)
+print(vars_with_missing)
+```
 
-
+```{}
 vars_forest = colnames( Train %>% dplyr::select(-c("Y", "W" ))  )
 
 XYW <- function(TrainDat){
