@@ -5,7 +5,7 @@
 
 **Citation**
 
-**Wang T, Pate V, Wyss R, Buse JB, Kosorok MR, Stürmer T. High-dimensional Iterative Causal Forest (hdiCF): a Novel Algorithm for Subgroup Identification in Claims Data. Am J Epidemiol (Accepted) March 25, 2024.**
+**Wang T, Pate V, Wyss R, Buse JB, Kosorok MR, Stürmer T. High-dimensional Iterative Causal Forest (hdiCF): a Novel Algorithm for Subgroup Identification in Claims Data. Am J Epidemiol (In Press) March 25, 2024.**
 
 The hdiCF algorithm identifies important subgroups with heterogeneous treatment effects without prior knowledge of treatment-covariate interactions and predefined covariates. The Step 3 is Implementation of [iCF](https://github.com/tianshengwang/iCF).
 
@@ -64,12 +64,12 @@ Create analytic cohort and ordinal HD variables in SAS.
                                              paste0("atc", atcgroup)
                                              ),                  
                                              )
-               ) %>% as.data.frame.matrix() 
+               ) 
   #remove columns with only one level
   train00 <- train00[, sapply(train00, function(col) length(unique(col))) > 1]   
   return(train00)
 }
-Train <- Train_BENEID_all %>% select(-c("BENE_ID", "IndexDate"))
+Train <- Train_BENEID_all %>% select(-c("BENE_ID", "IndexDate"))%>% as.data.frame.matrix() 
 ```
 
 ```{}
