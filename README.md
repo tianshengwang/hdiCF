@@ -14,26 +14,23 @@ The hdiCF algorithm identifies important subgroups with heterogeneous treatment 
 
 **1. R packages recommended**
 ```{r packages, include=FALSE}
-library(MASS)
-library(grf)
-library(tidyverse)
-library(rlang)
-library(rlist)
-library(plyr)
-library(caret)
-library(caTools)
-library(listdtr)
-library(randomForest)
-library(ggplot2)
-library(ggridges)
-library(data.table)
-library(grid)
-library(broom)
-library(rstatix)
-library(DMwR)
-library(knitr)
-library(Rfast)
-library(spaMM)
+# List of packages to install
+packages_to_install <- c("MASS", "grf", "tidyverse", "rlang", "rlist", "plyr",
+                         "caret", "caTools", "listdtr", "randomForest", "ggplot2",
+                         "ggridges", "data.table", "grid", "cobalt", "broom",
+                         "optmatch", "personalized", "FindIt", "grplasso",
+                         "rstatix", "ggpubr", "DMwR", "aVirtualTwins", "knitr", 
+                         "Rfast")
+
+# Install the packages
+#install.packages(packages_to_install)
+
+# Load the packages into the R session
+lapply(packages_to_install, library, character.only = TRUE)
+
+# Additional command to set a specific theme in ggplot2
+theme_set(theme_ridges())
+
 ```
 **2. Installation**
 
