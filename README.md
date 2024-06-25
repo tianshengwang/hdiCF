@@ -20,7 +20,7 @@ packages_to_install <- c("MASS", "grf", "tidyverse", "rlang", "rlist", "plyr",
                          "ggridges", "data.table", "grid", "cobalt", "broom",
                          "optmatch", "personalized", "FindIt", "grplasso",
                          "rstatix", "ggpubr", "DMwR", "aVirtualTwins", "knitr", 
-                         "Rfast")
+                         "DiagrammeR")
 
 # Install the packages
 #install.packages(packages_to_install)
