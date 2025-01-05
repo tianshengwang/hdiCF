@@ -19,8 +19,7 @@ packages_to_install <- c("MASS", "grf", "tidyverse", "rlang", "rlist", "plyr",
                          "caret", "caTools", "listdtr", "randomForest", "ggplot2",
                          "ggridges", "data.table", "grid", "cobalt", "broom",
                          "optmatch", "personalized", "FindIt", "grplasso",
-                         "rstatix", "ggpubr", "DMwR", "aVirtualTwins", "knitr", 
-                         "DiagrammeR")
+                         "rstatix", "ggpubr", "DMwR", "knitr", "DiagrammeR")
 
 # Install the packages
 #install.packages(packages_to_install)
