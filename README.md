@@ -40,7 +40,84 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 
 ***Step 1. High-dimensional feature identification***
 
-Create analytic cohort and ordinal HD variables in SAS.
+#Create analytic cohort and ordinal HD variables in SAS. Load raw data in SAS format
+Train_0 = haven::read_sas(paste0("hdicf_", drug1, "v", drug2, "_p",c*100, "_n",n, "_i",dxgroup, "_a", atcgroup,".sas7bdat"))
+
+Train_0_date <- Train_0 %>% 
+            dplyr::filter(#exclude==0 & #exclusion criteria already applied in hdicf_sgltvglp.sas7bdat
+                          FillDate2 <= as.Date("2019-12-31") & #21914 &  #31DEC2019
+                          IndexDate >= (as.Date("2015-10-15") + 365) & #(20376 + 365) &#20376 & #15OCT2015 + 365 daysBL 
+                          FillDate2 <= (as.Date("2019-12-31")-365*2) & #(21914-365*2) & #& #31DEC2019 due to limited sample size
+                          is.na(FillDate2)==F &
+                            excludeFlag_preFill2Initiator ==0 &
+                            excludeFlag_sameDayInitiator==0 &
+                            excludeFlag_prevalentUser==0 
+                          ) 
+
+is.na(Train_0_date$HFPRIMARY_ICD10DX_date)
+Train1 <- Train_0_date %>% 
+          transform(min_CensorF2_730 = pmin(censorDate_ITT, FillDate2+ 365*2),
+                    min_CensorF2_730_HFF = pmin(censorDate_ITT, HFPRIMARY_ICD10DX_date, FillDate2 + 365*2))%>%
+          dplyr::mutate(
+            HHFfu_2yr = ifelse(is.na(HFPRIMARY_ICD10DX_date)==T,
+                               min_CensorF2_730 - FillDate2,
+                               min_CensorF2_730_HFF - FillDate2),
+            #HHF regardless of risk period!!!
+            HHF   = ifelse( is.na( HFPRIMARY_ICD10DX_date) != T & #has event date
+                              HFPRIMARY_ICD10DX_date >= FillDate2, #event date is later than Filldate2
+                            #asthma_exacerbation_dt <= min(censorDate_ITT, FillDate2 + 365*0.5 ),
+                            1, 0),
+            
+            age = as.numeric( cut(age, c(65,70,75,80,85,Inf) ,
+                                  labels=c("65<age<=70 ","70<age<=75","75<age<=80","80<age<=85", "age>85")
+            )) 
+            
+          ) %>%
+          dplyr::mutate(race = case_when(race == "1" ~ 1,
+                                         race == "2" ~ 2,
+                                         !(race %in% c("1", "2")) ~  3)
+          )
+
+#rm(Train_0)
+nrow(Train1) #15388
+table(Train1$HHF)             
+is.na(Train1$death_dt)
+Train2 <- Train1 %>%
+          dplyr::mutate(HHF_3yr_3yr = ifelse(HHF==1 &
+                                               HFPRIMARY_ICD10DX_date <=censorDate_ITT &
+                                               HFPRIMARY_ICD10DX_date <= IndexDate + 365*3 ,
+                                                            1, 0),
+                        HHF_2yr_2yr =  ifelse(  HHF==1 & # event date is later than the start of follow up 
+                                                                              
+                                                    (#not dead by 12/31/2019
+                                                    (is.na(death_dt) == T & 
+                                                     HFPRIMARY_ICD10DX_date <=  FillDate2+730 &
+                                                     HFPRIMARY_ICD10DX_date <=  censorDate_ITT    ) |
+                                                      #dead by 12/31/2019
+                                                    (is.na(death_dt) != T & 
+                                                     HFPRIMARY_ICD10DX_date <=  FillDate2+730 &
+                                                     HFPRIMARY_ICD10DX_date <=  censorDate_ITT & 
+                                                     HFPRIMARY_ICD10DX_date <=  death_dt
+                                                     ) 
+                                                    )
+                                               , 
+                                               1, 
+                                               0) ,                                                       
+                        HHF_1yr_1yr = ifelse(HHF==1 &
+                                               HFPRIMARY_ICD10DX_date <=censorDate_ITT &
+                                               HFPRIMARY_ICD10DX_date <= IndexDate + 365*1 ,
+                                             1, 0),
+                        HHF_05yr_05yr = ifelse(HHF==1 &
+                                               HFPRIMARY_ICD10DX_date <=censorDate_ITT &
+                                               HFPRIMARY_ICD10DX_date <= IndexDate + 365*0.5 ,
+                                             1, 0),
+                        
+                        )
+
+nrow(Train2) #15388
+table(Train2$HHF)
+table(Train2$HHF_2yr_2yr)
+
 
 ***Step 2. Propensity score trimming and HD features preparation***
 
@@ -64,6 +141,10 @@ Create analytic cohort and ordinal HD variables in SAS.
   train00 <- train00[, sapply(train00, function(col) length(unique(col))) > 1]   
   return(train00)
 }
+
+Train_BENEID_all <<- PREPARE_HD(Train2, dxgroup, atcgroup)
+
+
 Train <- Train_BENEID_all %>% select(-c("BENE_ID", "IndexDate"))%>% as.data.frame.matrix() 
 ```
 
