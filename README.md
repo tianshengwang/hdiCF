@@ -50,10 +50,9 @@ Train_0_date <- Train_0 %>%
                           IndexDate >= (as.Date("2015-10-15") + 365) & #(20376 + 365) &
                           FillDate2 <= (as.Date("2019-12-31")-365*2) & #(21914-365*2) & 
                           is.na(FillDate2)==F &
-                            excludeFlag_preFill2Initiator ==0 &
-                            excludeFlag_sameDayInitiator==0 &
-                            excludeFlag_prevalentUser==0 
-                          ) 
+                          excludeFlag_preFill2Initiator ==0 &
+                          excludeFlag_sameDayInitiator==0 &
+                          excludeFlag_prevalentUser==0 ) 
 
 Train1 <- Train_0_date %>% 
           transform(min_CensorF2_730 = pmin(censorDate_ITT, FillDate2+ 365*2),
@@ -65,22 +64,18 @@ Train1 <- Train_0_date %>%
             #HHF regardless of risk period!!!
             HHF   = ifelse( is.na( HFPRIMARY_ICD10DX_date) != T &
                               HFPRIMARY_ICD10DX_date >= FillDate2,
-                            1, 0),
-            
+                            1, 0),           
             age = as.numeric( cut(age, c(65,70,75,80,85,Inf) ,
                                   labels=c("65<age<=70 ","70<age<=75","75<age<=80","80<age<=85", "age>85")
-            )) 
-            
-          ) %>%
+            ))) %>%
           dplyr::mutate(race = case_when(race == "1" ~ 1,
                                          race == "2" ~ 2,
-                                         !(race %in% c("1", "2")) ~  3)
-          )
+                                         !(race %in% c("1", "2")) ~  3) )
 
 Train2 <- Train1 %>%
           dplyr::mutate(HHF_3yr_3yr = ifelse(HHF==1 &
-                                               HFPRIMARY_ICD10DX_date <=censorDate_ITT &
-                                               HFPRIMARY_ICD10DX_date <= IndexDate + 365*3 ,
+                                             HFPRIMARY_ICD10DX_date <=censorDate_ITT &
+                                             HFPRIMARY_ICD10DX_date <= IndexDate + 365*3 ,
                                                             1, 0),
                         HHF_2yr_2yr =  ifelse(  HHF==1 &                                                                               
                                                     (#not dead by 12/31/2019
@@ -94,10 +89,7 @@ Train2 <- Train1 %>%
                                                      HFPRIMARY_ICD10DX_date <=  death_dt
                                                      ) 
                                                     )
-                                               , 
-                                               1, 
-                                               0) 
-                                              )
+                                               , 1, 0) )
 
 ```
 ***Step 2. Propensity score trimming and HD features preparation***
