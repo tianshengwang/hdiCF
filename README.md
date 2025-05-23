@@ -125,7 +125,6 @@ Train2 <- Train1 %>%
 
 Train_BENEID_all <<- PREPARE_HD(Train2, dxgroup, atcgroup)
 
-
 Train <- Train_BENEID_all %>% select(-c("BENE_ID", "IndexDate"))%>% as.data.frame.matrix() 
 ```
 
