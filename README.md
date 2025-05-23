@@ -52,7 +52,6 @@ Train_0_date <- Train_0 %>%
                             excludeFlag_prevalentUser==0 
                           ) 
 
-is.na(Train_0_date$HFPRIMARY_ICD10DX_date)
 Train1 <- Train_0_date %>% 
           transform(min_CensorF2_730 = pmin(censorDate_ITT, FillDate2+ 365*2),
                     min_CensorF2_730_HFF = pmin(censorDate_ITT, HFPRIMARY_ICD10DX_date, FillDate2 + 365*2))%>%
