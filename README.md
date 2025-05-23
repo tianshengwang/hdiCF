@@ -20,7 +20,6 @@ packages_to_install <- c("MASS", "grf", "tidyverse", "rlang", "rlist", "plyr",
                          "ggridges", "data.table", "grid", "cobalt", "broom",
                          "optmatch", "rstatix", "ggpubr", "DMwR", "knitr", "DiagrammeR")
 
-# Install the packages
 #install.packages(packages_to_install)
 
 # Load the packages into the R session
@@ -39,7 +38,7 @@ Please following the information for [iCF installation](https://github.com/tians
 For simplicity, we focused on the ICD-10 era, included patients who initiated SGLT2i or GLP1RA treatment from October 2016 and followed them until December 2019. We compared the two-year risk difference (RD) of hospitalized heart failure (HHF) of initiating any sodium-glucose cotransporter-2 inhibitors (SGLT2i) versus glucagon-like peptide-1 receptor agonists (GLP1RA) using a 20% random sample of all fee-for-service U.S. Medicare beneficiaries who had parts A (inpatient), B (outpatient physician services), and D (dispensed prescription drugs) coverage for at least one month from October 2015 to December 2019. The details of the cohort are available in the mehtod paper (Wang et al.) 
 
 ***Step 1. High-dimensional feature identification***
-
+```{}
 #Create analytic cohort and ordinal HD variables in SAS. Load raw data in SAS format.
 Train_0 = haven::read_sas(paste0("hdicf_", drug1, "v", drug2, "_p",c*100, "_n",n, "_i",dxgroup, "_a", atcgroup,".sas7bdat"))
 
@@ -106,7 +105,7 @@ nrow(Train2) #15388
 table(Train2$HHF)
 table(Train2$HHF_2yr_2yr)
 
-
+```
 ***Step 2. Propensity score trimming and HD features preparation***
 
 ***Step 2A. Predict propensity score with all HD features***
