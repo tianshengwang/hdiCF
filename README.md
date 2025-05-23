@@ -31,13 +31,15 @@ theme_set(theme_ridges())
 ```
 **2. Installation**
 
-Please following the information for [iCF installation](https://github.com/tianshengwang/iCF).
+Please follow the information for [iCF installation](https://github.com/tianshengwang/iCF).
 
 **3. Run hdiCF on real-world claims data**
 
 For simplicity, we focused on the ICD-10 era, included patients who initiated SGLT2i or GLP1RA treatment from October 2016 and followed them until December 2019. We compared the two-year risk difference (RD) of hospitalized heart failure (HHF) of initiating any sodium-glucose cotransporter-2 inhibitors (SGLT2i) versus glucagon-like peptide-1 receptor agonists (GLP1RA) using a 20% random sample of all fee-for-service U.S. Medicare beneficiaries who had parts A (inpatient), B (outpatient physician services), and D (dispensed prescription drugs) coverage for at least one month from October 2015 to December 2019. The details of the cohort are available in the mehtod paper (Wang et al.) 
 
 ***Step 1. High-dimensional feature identification***
+Please follow the SAS programs in the SAS folder to generate HD variables and analytic cohort [iCF installation](https://github.com/tianshengwang/iCF).
+
 ```{}
 #Create analytic cohort and ordinal HD variables in SAS. Load raw data in SAS format.
 Train_0 = haven::read_sas(paste0("hdicf_", drug1, "v", drug2, "_p",c*100, "_n",n, "_i",dxgroup, "_a", atcgroup,".sas7bdat"))
