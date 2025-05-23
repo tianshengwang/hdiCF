@@ -75,10 +75,6 @@ Train1 <- Train_0_date %>%
                                          !(race %in% c("1", "2")) ~  3)
           )
 
-#rm(Train_0)
-nrow(Train1) #15388
-table(Train1$HHF)             
-is.na(Train1$death_dt)
 Train2 <- Train1 %>%
           dplyr::mutate(HHF_3yr_3yr = ifelse(HHF==1 &
                                                HFPRIMARY_ICD10DX_date <=censorDate_ITT &
@@ -100,10 +96,6 @@ Train2 <- Train1 %>%
                                                1, 
                                                0) 
                                               )
-
-nrow(Train2) #15388
-table(Train2$HHF)
-table(Train2$HHF_2yr_2yr)
 
 ```
 ***Step 2. Propensity score trimming and HD features preparation***
