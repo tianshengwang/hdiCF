@@ -44,7 +44,8 @@ Please follow the SAS programs in the SAS folder to generate a cohort with HD va
 ```{}
 #Load the cohort with HD variables (in SAS format) to create analytic cohort (in R format).
 c=0.01; n=200; dxgroup <<- 3; atcgroup <<- 3; Lcutoff=20; pcttop=0.95; 
-Train_0 = haven::read_sas(paste0("hdicf_", drug1, "v", drug2, "_p",c*100, "_n",n, "_i",dxgroup, "_a", atcgroup,".sas7bdat"))
+Train_0 = haven::read_sas(paste0("hdicf_", drug1, "v", drug2, "_p",c*100,
+                                "_n",n, "_i",dxgroup, "_a", atcgroup,".sas7bdat"))
 
 Train_0_date <- Train_0 %>% 
             dplyr::filter(FillDate2 <= as.Date("2019-12-31") & 
