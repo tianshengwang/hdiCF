@@ -31,7 +31,7 @@ theme_set(theme_ridges())
 ```
 **2. Installation**
 
-Please follow the information for [iCF installation](https://github.com/tianshengwang/iCF).
+Please follow the information for [iCF installation](https://github.com/tianshengwang/hdiCF/tree/iCF/SAS).
 
 **3. Run hdiCF on real-world claims data**
 
@@ -39,7 +39,7 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 
 ***Step 1. High-dimensional feature identification***
 
-Please follow the SAS programs in the SAS folder to generate HD variables and analytic cohort [iCF installation](https://github.com/tianshengwang/iCF).
+Please follow the SAS programs in the SAS folder to generate a cohort with HD variables.
 
 ```{}
 #Create analytic cohort and ordinal HD variables in SAS. Load raw data in SAS format.
