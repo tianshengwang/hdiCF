@@ -42,7 +42,7 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 Please follow the SAS programs in the SAS folder to generate a cohort with HD variables.
 
 ```{}
-#Create analytic cohort and ordinal HD variables in SAS. Load raw data in SAS format.
+#Load the cohort with HD variables (in SAS format) to create analytic cohort (in R format). 
 Train_0 = haven::read_sas(paste0("hdicf_", drug1, "v", drug2, "_p",c*100, "_n",n, "_i",dxgroup, "_a", atcgroup,".sas7bdat"))
 
 Train_0_date <- Train_0 %>% 
