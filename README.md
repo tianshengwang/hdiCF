@@ -31,7 +31,7 @@ theme_set(theme_ridges())
 ```
 **2. Installation**
 
-Please follow the information for [iCF installation](https://github.com/tianshengwang/iCF).
+Please download R programs for iCF and follow the information for [iCF installation](https://github.com/tianshengwang/iCF).
 
 ```{}
 source("/local/iCF/best_tree_MSegar.R")
