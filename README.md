@@ -33,6 +33,25 @@ theme_set(theme_ridges())
 
 Please follow the information for [iCF installation](https://github.com/tianshengwang/hdiCF/tree/iCF/SAS).
 
+```{}
+source("/local/iCF/best_tree_MSegar.R")
+source("/local/iCF/iCF_CV.R")
+source("/local/iCF/iCF_TREE_build.R")
+source("/local/iCF/iCF_PARENT_node.R")
+source("/local/iCF/iCF_PRE_majority.R")
+source("/local/iCF/iCF_MAJORITY_VOTE.R")
+source("/local/iCF/iCF_SUBGROUP_DECISION.R")
+source("/local/iCF/iCF_SUBGROUP_PIPELINE.R")
+source("/local/iCF/iCF_SUBGROUP_ANALYSIS.R")
+source("/local/iCF/iCF_SUBGROUP_MODEL.R")
+source("/local/iCF/iCF_GG_toolbox.R")
+source("/local/iCF/sim_Truth_tree.R")
+```
+Note, the iCF_HD.R program is specifically for hdiCF
+```{}
+source("/local/iCF/iCF_HD.R")
+```
+
 **3. Run hdiCF on real-world claims data**
 
 For simplicity, we focused on the ICD-10 era, included patients who initiated SGLT2i or GLP1RA treatment from October 2016 and followed them until December 2019. We compared the two-year risk difference (RD) of hospitalized heart failure (HHF) of initiating any sodium-glucose cotransporter-2 inhibitors (SGLT2i) versus glucagon-like peptide-1 receptor agonists (GLP1RA) using a 20% random sample of all fee-for-service U.S. Medicare beneficiaries who had parts A (inpatient), B (outpatient physician services), and D (dispensed prescription drugs) coverage for at least one month from October 2015 to December 2019. The details of the cohort are available in the mehtod paper (Wang et al.) 
