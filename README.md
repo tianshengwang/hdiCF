@@ -51,6 +51,7 @@ Note, the iCF_HD.R program is specifically for hdiCF
 ```{}
 source("/local/iCF/iCF_HD.R")
 ```
+For obtaining and selecting HD variable from analytic cohort, please use the [SAS programs](https://github.com/tianshengwang/hdiCF/tree/iCF/SAS) we developed.
 
 **3. Run hdiCF on real-world claims data**
 
