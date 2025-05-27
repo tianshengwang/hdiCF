@@ -31,7 +31,7 @@ theme_set(theme_ridges())
 ```
 **2. Installation**
 
-Please follow the information for [iCF installation](https://github.com/tianshengwang/hdiCF/tree/iCF/SAS).
+Please follow the information for [iCF installation](https://github.com/tianshengwang/iCF/tree/iCF/SAS).
 
 ```{}
 source("/local/iCF/best_tree_MSegar.R")
