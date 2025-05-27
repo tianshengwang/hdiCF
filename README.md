@@ -58,7 +58,7 @@ For simplicity, we focused on the ICD-10 era, included patients who initiated SG
 
 ***Step 1. High-dimensional feature identification***
 
-Please follow the SAS programs in the SAS folder to generate a cohort with HD variables.
+Please follow the SAS programs in the SAS folder to generate a cohort with HD variables. Note that the dates (e.g., 2019-12-31) and follow-up durations (e.g., 365*2) currently specified are based on the published empirical study (https://doi.org/10.1093/aje/kwae322) and should be adjusted appropriately when applying to a different empirical cohort.
 
 ```{}
 #Load the cohort with HD variables (in SAS format) to create analytic cohort (in R format).
