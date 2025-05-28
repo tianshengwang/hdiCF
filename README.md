@@ -153,7 +153,7 @@ Y <<- XYW(Train)$y
 W <<- XYW(Train)$w
 
 ncol(X); nrow(X); length(Y); length(W)
-#Z<-Train[,vars_IV]
+#Obtain a list of key results from the raw causal forest output.
 cf_raw_key.tr <- CF_RAW_key(Train, 1, "hd", hdPctTop=pct_inter) 
 #==============================================#==============================================
 Y.hat  <<- cf_raw_key.tr$Y.hat                 #
