@@ -109,29 +109,33 @@ Train2 <- Train1 %>%
                                                      HFPRIMARY_ICD10DX_date <=  FillDate2+730 &
                                                      HFPRIMARY_ICD10DX_date <=  censorDate_ITT & 
                                                      HFPRIMARY_ICD10DX_date <=  death_dt
-                                                     ) 
-                                                    )
-                                               , 1, 0) )
+                                                     ) ) , 1, 0) )
 
 ```
 ***Step 2. Propensity score trimming and HD features preparation***
 
 ***Step 2A. Predict propensity score with all HD features***
 ```{}
+#' PREPARE_HD
+#' 
+#' function to obtain non-HD (ID, Y, W, demographic [age, sex, race]) and HD variables for diagnosis, procedures, and prescription codes
+#' @param train dataset for overall population
+#' @param dxgroup the granularity level of diagnosis (ICD) codes
+#' @param atcgroup the granularity level of prescription (ATC) codes
+#'  
+#' @return the dataset with non-HD and HD variables
+#' 
+#' @export
  PREPARE_HD <-function(train, dxgroup, atcgroup){
- # if (outcome=="adrd"){
     train0 <- train %>%  dplyr::mutate(Y = HHF_2yr_2yr,
                                        W = ifelse(SGLT==1,1,0),     
                                        sex=as.numeric(sex),
                                        race=as.numeric(race))
-    train00 <- train0 %>% 
-             dplyr::select(BENE_ID, Y, W, age, sex , race,
+    train00 <- train0 %>% dplyr::select(BENE_ID, Y, W, age, sex , race,
                                starts_with(c(paste0("dx",dxgroup) , 
                                              "cpt5", 
                                              paste0("atc", atcgroup)
-                                             ),                  
-                                             )
-               ) 
+                                             ), )) 
   #remove columns with only one level
   train00 <- train00[, sapply(train00, function(col) length(unique(col))) > 1]   
   return(train00)
@@ -139,6 +143,7 @@ Train2 <- Train1 %>%
 
 Train_BENEID_all <<- PREPARE_HD(Train2, dxgroup, atcgroup)
 
+#Obtain the dataset with key non HD (Y, W, demographic [age, sex, race]) and HD variables 
 Train <- Train_BENEID_all %>% select(-c("BENE_ID", "IndexDate"))%>% as.data.frame.matrix() 
 ```
 
