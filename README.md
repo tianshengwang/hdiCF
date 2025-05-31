@@ -333,7 +333,7 @@ c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95$selectedSG_ori
 Note: If you encounter the **ERROR** message:
 "Error in if (zz > -0.001) zz <- max(zz, 0) else stop("profiling has found a better solution, so original fit had not converged"): missing value where TRUE/FALSE needed", it means one or more subgroups have outcomes with only one level (e.g., Y = 0 for all patients), typically due to a very low number of events (we observed this error at risk levels below 0.5%). In such cases, the CATE estimates are unreliable, and the use of iCF is not recommended.
 
-***Transparency in running iCF model***
+***Transparency in running iCF algorithm***
 
 Propensity score distribution across training and testing sets
 ```{}
