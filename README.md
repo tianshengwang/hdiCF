@@ -5,7 +5,7 @@
 
 **Citation**
 
-**Wang T, Pate V, Wyss R, Buse JB, Kosorok MR, Stürmer T. High-dimensional Iterative Causal Forest (hdiCF): a Novel Algorithm for Subgroup Identification in Claims Data. Am J Epidemiol https://doi.org/10.1093/aje/kwae322.**
+**Wang T, Pate V, Wyss R, Buse JB, Kosorok MR, Stürmer T. High-dimensional Iterative Causal Forest (hdiCF): a Novel Algorithm for Subgroup Identification in Claims Data. Am J Epidemiol. 2024 Sep 5:kwae322. https://doi.org/10.1093/aje/kwae322.**
 
 The hdiCF algorithm identifies important subgroups with heterogeneous treatment effects without prior knowledge of treatment-covariate interactions and predefined covariates. The Step 3 is Implementation of [iCF](https://github.com/tianshengwang/iCF).
 
