@@ -295,7 +295,7 @@ D2_MLS$depth_gg
 ```
 <img src = images/D2_MLS_tune_rwdHD.png width=350>
 
-Notably, if you got this **ERROR** message "_Error: Can't subset columns that don't exist. x Column `parent_sign` doesn't exist._", it suggests the denominator used for developing causal forest is too small, leading to a too large MLS for D2 forest so that the tree does not even split (the node does not have a parent node). In this scenario, increasing the denominator will solve the problem.
+Notably, if you got this **error** message "_Error: Can't subset columns that don't exist. x Column `parent_sign` doesn't exist._", it suggests the denominator used for developing causal forest is too small, leading to a too large MLS for D2 forest so that the tree does not even split (the node does not have a parent node). In this scenario, increasing the denominator will solve the problem.
 
 ```{}
 D3_MLS=MinLeafSizeTune(dat=dat, denominator=45, treeNo = 1000, iterationNo=100, split_val_round_posi=0, "D3", "steelblue4")
@@ -330,8 +330,8 @@ c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95 <- iCFCV(dat=Train,K=5, treeNo=1000, iter
 #Subgroup decision:
 c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95$selectedSG_ori
 ```
-Note: If you encounter the **ERROR** message:
-"Error in if (zz > -0.001) zz <- max(zz, 0) else stop("profiling has found a better solution, so original fit had not converged"): missing value where TRUE/FALSE needed", it means one or more subgroups have outcomes with only one level (e.g., Y = 0 for all patients), typically due to a very low number of events (we observed this error at risk levels below 0.5%). In such cases, the CATE estimates are unreliable, and the use of iCF is not recommended.
+Note: If you encounter the **error** message:
+"Error in if (zz > -0.001) zz <- max(zz, 0) else stop("profiling has found a better solution, so original fit had not converged"): missing value where TRUE/FALSE needed", it means one or more subgroups have outcomes with only one level (e.g., Y = 0 for all patients), typically due to rare events. In such cases, the CATE estimates are unreliable, and the use of iCF is not recommended.
 
 ***Transparency in running iCF algorithm***
 
