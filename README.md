@@ -137,6 +137,7 @@ list_vars_with_missing_data <- function(df) {
 vars_with_missing <- list_vars_with_missing_data(Train)
 print(vars_with_missing)
 ```
+If the output of `print` is `"character(0)"`, it indicates there are no missing data, and you can proceed to the next step. Otherwise, resolve the missing data issues before moving forward.
 
 ```{}
 vars_forest = colnames( Train %>% dplyr::select(-c("Y", "W" ))  )
