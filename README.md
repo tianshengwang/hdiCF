@@ -11,6 +11,8 @@ The hdiCF algorithm identifies important subgroups with heterogeneous treatment 
 
 <img src = images/FIGURE1_hdiCF_3KEYsteps.jpg width=1000>
 
+**Figure 1.** The key steps of the hdiCF algorithm. All n, c, m, and S are parameters (n = 50, 100, 200; c = 0.01, 0.02, 0.05; m = 15, 20, 25; S = 0.01, 0.05, 0.1). **_X<sub>S</sub>_** = selected variables; $\hat{W}$ = predicted propensity score (i.e., PS); $\hat{Y}$ = predicted outcome.
+
 
 **1. R packages recommended**
 ```{r packages, include=FALSE}
