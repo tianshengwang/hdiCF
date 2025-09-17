@@ -1,8 +1,5 @@
 # high-dimensional Iterative Causal Forest (hdiCF)
 
-© 2024 Tiansheng Wang. This work is openly licensed via [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
-
-
 **Citation**
 
 **Wang T, Pate V, Wyss R, Buse JB, Kosorok MR, Stürmer T. High-dimensional Iterative Causal Forest (hdiCF): a Novel Algorithm for Subgroup Identification in Claims Data. Am J Epidemiol. 2024 Sep 5:kwae322. https://doi.org/10.1093/aje/kwae322.**
@@ -362,4 +359,8 @@ GG_CV_Dx_YstarNo0(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
 ```
 <img src = images/YstarNo0.png width=1350>
 
-If you have further questions or comments, please contact Dr. Tiansheng Wang: tianwang@unc.edu
+**Empirical Studies Implementing hdiCF:**
+
+Wang T, Wang J, Kinlaw AC, Wyss R, Pate V, Gou Z, Buse JB, Keet CA, Kosorok MR, Stürmer T. Glucagon-like Peptide 1 Receptor Agonists in Asthma Exacerbations: an Application of High-dimensional Iterative Causal Forest to Identify Subgroups. Pharmacoepidemiol Drug Saf. 2025;34:e70192. https://doi.org/10.1002/pds.70192
+
+If you have further questions or comments, please contact Dr. Tiansheng Wang: tianwang@uh.edu
