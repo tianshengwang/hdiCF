@@ -359,7 +359,7 @@ GG_CV_Dx_YstarNo0(c1_n200_I3_A4_K5_B1000_i100_Tc_L20_V95, 5)
 ```
 <img src = images/YstarNo0.png width=1350>
 
-**Empirical Studies Implementing hdiCF:**
+**Empirical Studies Implementing hdiCF in real-world data:**
 
 Wang T, Wang J, Kinlaw AC, Wyss R, Pate V, Gou Z, Buse JB, Keet CA, Kosorok MR, Stürmer T. Glucagon-like Peptide 1 Receptor Agonists in Asthma Exacerbations: an Application of High-dimensional Iterative Causal Forest to Identify Subgroups. Pharmacoepidemiol Drug Saf. 2025;34:e70192. https://doi.org/10.1002/pds.70192
 
