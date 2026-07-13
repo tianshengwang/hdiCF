@@ -1,0 +1,51 @@
+                                                   The FREQ Procedure
+
+                                      Cumulative    Cumulative
+dx3_inpt    Frequency    Percent     Frequency      Percent
+-----------------------------------------------------------------
+E11                 5     29.41            5        29.41
+I50                 5     29.41           10        58.82
+I25                 4     23.53           14        82.35
+N18                 3     17.65           17       100.00
+                                                  The MEANS Procedure
+
+                                              Analysis Variable : count
+
+                                         N
+                           dx3_inpt    Obs         Median      Upper Quartile      90th Pctl
+                           -----------------------------------------------------------------
+                           E11           5      2.0000000           3.0000000      8.0000000
+                           I25           4      1.5000000           4.0000000      6.0000000
+                           I50           5      3.0000000           4.0000000      5.0000000
+                           N18           3      2.0000000           4.0000000      4.0000000
+                           -----------------------------------------------------------------
+
+             hdiCF hdcov: recurrence reference (prevalence order + median/Q3/P90 cutpoints) by ICD-10 code              
+
+  Obs  dimension  code  prev_order  prevalence  count  median  q3  p90
+    1  dx3_inpt   E11            1         0.5      5       2   3    8
+    2  dx3_inpt   I50            2         0.5      5       3   4    5
+    3  dx3_inpt   I25            3         0.4      4     1.5   4    6
+    4  dx3_inpt   N18            4         0.3      3       2   4    4
+
+                     hdiCF hdcov: ordinal_val + cov_once/cov_sporadic/cov_frequent recurrence flags                     
+
+  Obs                       label  bene_id  indexdate  dx3_inpt  count  median  q3  p90  ordinal_val  cov_once  cov_sporadic  cov_frequent
+    1  Heart_failure               B001     01JAN2016  I50           5       3   4    5            3         1             1             1
+    2  Heart_failure               B002     01JAN2016  I50           1       3   4    5            1         1             0             0
+    3  Heart_failure               B003     15FEB2016  I50           3       3   4    5            2         1             1             0
+    4  Heart_failure               B004     15FEB2016  I50           2       3   4    5            2         1             0             0
+    5  Heart_failure               B005     03MAR2016  I50           4       3   4    5            2         1             1             1
+    6  Chronic_ischemic_heart_dis  B001     01JAN2016  I25           2     1.5   4    6            2         1             1             0
+    7  Chronic_ischemic_heart_dis  B002     01JAN2016  I25           1     1.5   4    6            1         1             0             0
+    8  Chronic_ischemic_heart_dis  B006     03MAR2016  I25           6     1.5   4    6            3         1             1             1
+    9  Chronic_ischemic_heart_dis  B007     20APR2016  I25           1     1.5   4    6            1         1             0             0
+   10  Type2_diabetes              B003     15FEB2016  E11           8       2   3    8            3         1             1             1
+   11  Type2_diabetes              B004     15FEB2016  E11           2       2   3    8            2         1             1             0
+   12  Type2_diabetes              B005     03MAR2016  E11           1       2   3    8            1         1             0             0
+   13  Type2_diabetes              B008     20APR2016  E11           3       2   3    8            2         1             1             1
+   14  Type2_diabetes              B009     08MAY2016  E11           1       2   3    8            1         1             0             0
+   15  Chronic_kidney_disease      B010     08MAY2016  N18           4       2   4    4            2         1             1             1
+   16  Chronic_kidney_disease      B009     08MAY2016  N18           2       2   4    4            2         1             1             0
+   17  Chronic_kidney_disease      B006     03MAR2016  N18           1       2   4    4            1         1             0             0
+

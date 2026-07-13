@@ -1,0 +1,13 @@
+{
+  "_captured_at": "2026-07-13T08:45:43Z",
+  "_captured_run_id": "r_bac7fc14864242bbbba3a41db8eea594",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "selected dx3_inpt   = dx3_inpt_I50 dx3_inpt_I25 dx3_inpt_E11",
+    "selected atc4_outpt = atc4_outpt_C03C",
+    "Wrote hdCov_selected (3 rows, 11 columns)."
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR", "not resolved"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

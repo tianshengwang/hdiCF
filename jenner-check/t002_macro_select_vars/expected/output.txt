@@ -1,0 +1,35 @@
+                     hdiCF select_vars: covariate matrix after prevalence-cutoff variable selection                     
+
+  Obs  bene_id  indexdate  dx3_inpt_I50  dx3_inpt_I25  dx3_inpt_E11  dx3_outpt_I50  dx3_outpt_E11  dx3_outpt_I48  cpt5_outpt_85610  cpt5_outpt_80053  atc4_outpt_C03C
+    1  B001     01JAN2016             3             2             1              3              1              0                 2                 0                3
+    2  B002     01JAN2016             1             0             2              2              3              1                 0                 1                2
+    3  B003     15FEB2016             2             3             0              1              2              0                 3                 2                1
+
+                         hdiCF select_vars: selected feature columns kept for the causal forest                         
+
+
+PROC CONTENTS
+-------------------------------------------------------------------------------
+
+Data Set Name: hdCov_selected
+Observations:  3
+Variables:     11
+
+Variables (in creation order):
+
+  #  Variable          Type    Len  Format  Label
+---  ----------------  ----  -----  ------  -----
+  1  bene_id           Char    200          
+  2  indexdate          Num      8  DATE9.  
+  3  dx3_inpt_I50       Num      8          
+  4  dx3_inpt_I25       Num      8          
+  5  dx3_inpt_E11       Num      8          
+  6  dx3_outpt_I50      Num      8          
+  7  dx3_outpt_E11      Num      8          
+  8  dx3_outpt_I48      Num      8          
+  9  cpt5_outpt_85610   Num      8          
+ 10  cpt5_outpt_80053   Num      8          
+ 11  atc4_outpt_C03C    Num      8          
+
+-------------------------------------------------------------------------------
+
