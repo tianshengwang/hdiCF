@@ -1,0 +1,54 @@
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA ref_hdCov
+
+NOTE: Processing inline DATALINES (10 lines)
+
+NOTE: Read 10 rows from DATALINES.
+NOTE: Wrote ref_hdCov (10 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA hdCov
+
+NOTE: Processing inline DATALINES (3 lines)
+
+NOTE: Read 3 rows from DATALINES.
+NOTE: Wrote hdCov (3 rows, 12 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SQL 
+
+NOTE: Macro variable LIST_DX3_INPT = dx3_inpt_I50 dx3_inpt_I25 dx3_inpt_E11
+NOTE: PROC SQL statement used.
+NOTE: PROC SQL 
+
+NOTE: Macro variable LIST_DX3_OUTPT = dx3_outpt_I50 dx3_outpt_E11 dx3_outpt_I48
+NOTE: PROC SQL statement used.
+NOTE: PROC SQL 
+
+NOTE: Macro variable LIST_CPT5_OUTPT = cpt5_outpt_85610 cpt5_outpt_80053
+NOTE: PROC SQL statement used.
+NOTE: PROC SQL 
+
+NOTE: Macro variable LIST_ATC4_OUTPT = atc4_outpt_C03C
+NOTE: PROC SQL statement used.
+NOTE: selected dx3_inpt   = dx3_inpt_I50 dx3_inpt_I25 dx3_inpt_E11
+NOTE: selected dx3_outpt  = dx3_outpt_I50 dx3_outpt_E11 dx3_outpt_I48
+NOTE: selected cpt5_outpt = cpt5_outpt_85610 cpt5_outpt_80053
+NOTE: selected atc4_outpt = atc4_outpt_C03C
+NOTE: DATA hdCov_selected
+
+
+NOTE: Read 3 rows from hdCov.
+NOTE: Wrote hdCov_selected (3 rows, 11 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC PRINT data=hdCov_selected
+
+NOTE: PROC PRINT completed: 3 observations printed, 11 variables
+NOTE: PROC CONTENTS data=hdCov_selected
+
+NOTE: PROC CONTENTS completed: 3 observations, 11 variables

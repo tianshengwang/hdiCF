@@ -1,0 +1,14 @@
+{
+  "_captured_at": "2026-07-13T08:42:48Z",
+  "_captured_run_id": "r_0394dd048f7e43519d1a04f525823a2c",
+  "status": "ok",
+  "exit_code": 0,
+  "log_contains": [
+    "Table ref_dx3_inpt created.",
+    "Table dx3_inpt_ordinalVar created.",
+    "PROC PRINT completed: 4 observations printed, 8 variables",
+    "PROC PRINT completed: 17 observations printed, 12 variables"
+  ],
+  "log_does_not_contain": ["ERROR:", "[JENNER-ERROR", "not resolved"],
+  "diagnostics": {"parse_warnings": [], "runtime_warnings": []}
+}

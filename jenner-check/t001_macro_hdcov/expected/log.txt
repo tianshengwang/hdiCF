@@ -1,0 +1,74 @@
+
+NOTE: Option OBS changed to 100.
+NOTE: DATA cohort
+
+NOTE: Processing inline DATALINES (10 lines)
+
+NOTE: Read 10 rows from DATALINES.
+NOTE: Wrote cohort (10 rows, 2 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: DATA all_dx3_inpt
+
+NOTE: Processing inline DATALINES (17 lines)
+
+NOTE: Read 17 rows from DATALINES.
+NOTE: Wrote all_dx3_inpt (17 rows, 5 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SQL 
+
+NOTE: Macro variable N_COHORT = 10
+NOTE: PROC SQL statement used.
+NOTE: PROC SQL 
+
+NOTE: Table dx3_inpt created.
+NOTE: PROC SQL statement used.
+NOTE: PROC FREQ
+NOTE: Output dataset dx3_inpt_freq has 4 observations and 3 variables.
+NOTE: ODS plot written: freq_dx3_inpt.spec.json
+NOTE: PROC FREQ statement used.
+NOTE: DATA dx3_inpt_freq2
+
+
+NOTE: Read 4 rows from dx3_inpt_freq.
+NOTE: Wrote dx3_inpt_freq2 (4 rows, 3 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC SORT data=dx3_inpt_freq2
+
+NOTE: Read 4 rows from dx3_inpt_freq2.
+NOTE: Wrote dx3_inpt_freq2 (4 rows, 3 columns).
+NOTE: PROC SORT statement used.
+NOTE: DATA dx3_inpt_freq3
+
+
+NOTE: Read 4 rows from dx3_inpt_freq2.
+NOTE: Wrote dx3_inpt_freq3 (4 rows, 4 columns).
+NOTE: DATA elapsed:
+  wall  0.00 seconds
+  cpu   0.00 seconds
+NOTE: PROC MEANS
+NOTE: Output dataset dx3_inpt_median has 5 observations and 6 variables.
+NOTE: PROC MEANS statement used.
+NOTE: PROC SQL 
+
+NOTE: Table dx3_inpt_median2 created.
+NOTE: PROC SQL statement used.
+NOTE: PROC SQL 
+
+NOTE: Table dx3_inpt_ordinalVar created.
+NOTE: PROC SQL statement used.
+NOTE: PROC SQL 
+
+NOTE: Table ref_dx3_inpt created.
+NOTE: PROC SQL statement used.
+NOTE: PROC PRINT data=ref_dx3_inpt
+
+NOTE: PROC PRINT completed: 4 observations printed, 8 variables
+NOTE: PROC PRINT data=dx3_inpt_ordinalVar
+
+NOTE: PROC PRINT completed: 17 observations printed, 12 variables

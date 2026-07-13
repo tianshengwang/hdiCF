@@ -1,0 +1,7 @@
+{
+  "bundle": "t001_macro_hdcov",
+  "source_file": "SAS/generate_HD_variables.sas",
+  "source_blob_sha": "9dae3c809a298eed2751cec8c6eb2df4de30c5a3",
+  "source_commit": "080bb202656d00a0d07a153480a4b1209c9eb92b",
+  "notes": "Recurrence-assessment core of the %hdcov macro (hdPS Steps 2 & 3): rank a claims dimension by prevalence, derive median/Q3/P90 count cutpoints, assign the ordinal covariate and cov_once/cov_sporadic/cov_frequent flags. Original reads Medicare claims from external SAS libraries; here the same logic runs against a synthetic dx3 inpatient dimension + cohort built inline. Macro renamed to hdcov_recur and stopped before the final wide-transpose step so it runs with no external deps."
+}

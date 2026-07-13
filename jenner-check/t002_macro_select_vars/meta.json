@@ -1,0 +1,7 @@
+{
+  "bundle": "t002_macro_select_vars",
+  "source_file": "SAS/select_variables_for_hdiCF.sas",
+  "source_blob_sha": "a4af56a76c4b2f1b7c97b41de12038e1d4c1d77e",
+  "source_commit": "080bb202656d00a0d07a153480a4b1209c9eb92b",
+  "notes": "Variable-selection logic (%select_vars_sub) from select_variables_for_hdiCF.sas: per dimension, build the top-max_num, prevalence>=c variable-name list via PROC SQL INTO ... SEPARATED BY, then keep exactly those columns on the wide covariate dataset. Original reads permanent ref_hdCov/hdCov from external SAS libraries; here both are built inline (ref_hdCov matches the ref_<dimension> shape %hdcov emits). %select_vars_sub is verbatim; wrapping keep-step mirrors %select_vars."
+}
